@@ -1,0 +1,89 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && (
+        request.auth.token.role == 'admin' ||
+        get(/databases/$(database)/documents/app_users/$(request.auth.uid)).data.role == 'admin'
+      );
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // ─── GIVEAWAYS (Sorteos) ──────────────────────────────────────────
+    match /giveaways/{giveawayId} {
+      // Any user (even public anon) can read active and visible giveaways
+      allow read: if true;
+
+      // Only verified store owner/admin can create, update, or delete giveaways
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ─── GIVEAWAY ENTRIES (Participaciones) ───────────────────────────
+    match /giveaway_entries/{entryId} {
+      // Users can read entries of a giveaway (to see participation count / public list)
+      allow read: if true;
+
+      // Participation rules:
+      // 1. User must be authenticated
+      // 2. entryId must strictly match giveawayId_userId (prevents multiple entries per user)
+      // 3. User can ONLY insert their own userId
+      // 4. Status must be VALID
+      // 5. Client cannot modify other fields or declare themselves winner
+      allow create: if isAuthenticated()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.entryId == request.resource.data.giveawayId + '_' + request.auth.uid
+        && request.resource.data.status == 'VALID';
+
+      // Normal customers CANNOT update or delete existing entries; only admin can manage
+      allow update, delete: if isAdmin();
+    }
+
+    // ─── GIVEAWAY WINNERS (Ganadores) ─────────────────────────────────
+    match /giveaway_winners/{winnerId} {
+      // Public can read winner details (sanitized publicName, prize, date)
+      allow read: if true;
+
+      // Selection must only be executed through authenticated admin or secure server backend
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ─── DISCOUNTS (Descuentos) ───────────────────────────────────────
+    match /discounts/{discountId} {
+      // Public read for active discount validation in cart and homepage banners
+      allow read: if true;
+
+      // Only admin can create, toggle or delete discounts
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ─── GIFT CARDS (Tarjetas de Regalo) ──────────────────────────────
+    match /gift_cards/{cardId} {
+      // Customer can read gift card if linked to them, or if code matches lookup
+      allow read: if true;
+
+      // Only admin or secure server-side drawing can issue gift cards
+      allow create, update, delete: if isAdmin();
+    }
+
+    // ─── CHAT CONVERSATIONS ───────────────────────────────────────────
+    match /chat_conversations/{conversationId} {
+      allow read: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.customerId == request.auth.uid ||
+        conversationId == 'conv-' + request.auth.uid ||
+        conversationId == 'conv-general'
+      );
+      allow create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "Hecho por Monse",
+  "description": "Ramos de flores de listón satinado, regalos románticos, cajas sorpresa y reservas personalizadas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

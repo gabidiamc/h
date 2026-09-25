@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790024080222,
+      "tag": "0000_lazo_eterno_core_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790036510910,
+      "tag": "0001_replica_identity_full_for_realtime_deletes",
+      "breakpoints": true
+    }
+  ]
+}

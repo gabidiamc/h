@@ -10,18 +10,120 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AccessibilityRouteImport } from './routes/accessibility'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AnnouncementsRouteImport } from './routes/announcements'
+import { Route as AppsRouteImport } from './routes/apps'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BflStatusRouteImport } from './routes/bfl-status'
 import { Route as CalendarioRouteImport } from './routes/calendario'
-import { Route as CuentaRouteImport } from './routes/cuenta'
-import { Route as GaleriaRouteImport } from './routes/galeria'
-import { Route as PanelRouteImport } from './routes/panel'
-import { Route as PersonalizadosRouteImport } from './routes/personalizados'
-import { Route as ProductosRouteImport } from './routes/productos'
-import { Route as RestablecerRouteImport } from './routes/restablecer'
-import { Route as TarjetasRouteImport } from './routes/tarjetas'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DartRouteImport } from './routes/dart'
+import { Route as DeportesActividadesRouteImport } from './routes/deportes-actividades'
+import { Route as EmpleosRouteImport } from './routes/empleos'
+import { Route as EquiposRouteImport } from './routes/equipos'
+import { Route as EscuelasRouteImport } from './routes/escuelas'
+import { Route as EventosRouteImport } from './routes/eventos'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as HorarioCampanasRouteImport } from './routes/horario-campanas'
+import { Route as LincolnRouteImport } from './routes/lincoln'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as ProgramasRouteImport } from './routes/programas'
+import { Route as ProgramasEstudiantesRouteImport } from './routes/programas-estudiantes'
+import { Route as QuienesSomosRouteImport } from './routes/quienes-somos'
+import { Route as RedesSocialesRouteImport } from './routes/redes-sociales'
+import { Route as SearchRouteImport } from './routes/search'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as VoluntariosRouteImport } from './routes/voluntarios'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminActividadesRouteImport } from './routes/admin.actividades'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
+import { Route as AdminAnunciosRouteImport } from './routes/admin.anuncios'
+import { Route as AdminAparienciaRouteImport } from './routes/admin.apariencia'
+import { Route as AdminArticulosRouteImport } from './routes/admin.articulos'
+import { Route as AdminAyudaFamiliasRouteImport } from './routes/admin.ayuda-familias'
+import { Route as AdminCalendarioRouteImport } from './routes/admin.calendario'
+import { Route as AdminCalidadRouteImport } from './routes/admin.calidad'
+import { Route as AdminCategoriasRouteImport } from './routes/admin.categorias'
+import { Route as AdminContactosRouteImport } from './routes/admin.contactos'
+import { Route as AdminCreadorIaRouteImport } from './routes/admin.creador-ia'
+import { Route as AdminDeportesActividadesRouteImport } from './routes/admin.deportes-actividades'
+import { Route as AdminEmergentesRouteImport } from './routes/admin.emergentes'
+import { Route as AdminEmpleosRouteImport } from './routes/admin.empleos'
+import { Route as AdminEscuelasRouteImport } from './routes/admin.escuelas'
+import { Route as AdminEventosRouteImport } from './routes/admin.eventos'
+import { Route as AdminFaqRouteImport } from './routes/admin.faq'
+import { Route as AdminMenuRouteImport } from './routes/admin.menu'
+import { Route as AdminPodcastsRouteImport } from './routes/admin.podcasts'
+import { Route as AdminProgramasRouteImport } from './routes/admin.programas'
+import { Route as AdminProgramasEstudiantesRouteImport } from './routes/admin.programas-estudiantes'
+import { Route as AdminRecursosRouteImport } from './routes/admin.recursos'
+import { Route as AdminRedesSocialesRouteImport } from './routes/admin.redes-sociales'
+import { Route as AdminReinicioRouteImport } from './routes/admin.reinicio'
+import { Route as AdminServiciosRouteImport } from './routes/admin.servicios'
+import { Route as AdminSolicitudesRouteImport } from './routes/admin.solicitudes'
+import { Route as AdminTraduccionesRouteImport } from './routes/admin.traducciones'
+import { Route as AdminUsuariosRouteImport } from './routes/admin.usuarios'
+import { Route as AdminVigenciaRouteImport } from './routes/admin.vigencia'
+import { Route as AdminLoginRouteImport } from './routes/admin_.login'
+import { Route as AdminRegistroRouteImport } from './routes/admin_.registro'
+import { Route as ApiAiGeneratorRouteImport } from './routes/api/ai-generator'
+import { Route as ApiPodcastTranscribeRouteImport } from './routes/api/podcast-transcribe'
+import { Route as ApiTranslateRouteImport } from './routes/api/translate'
+import { Route as ArticlesSlugRouteImport } from './routes/articles.$slug'
+import { Route as EquiposIndexRouteImport } from './routes/equipos.index'
+import { Route as EquiposSlugRouteImport } from './routes/equipos.$slug'
+import { Route as GuiasSlugRouteImport } from './routes/guias.$slug'
+import { Route as PodcastsIndexRouteImport } from './routes/podcasts.index'
+import { Route as PodcastsSlugRouteImport } from './routes/podcasts.$slug'
+import { Route as TopicsIndexRouteImport } from './routes/topics.index'
+import { Route as TopicsSlugRouteImport } from './routes/topics.$slug'
+import { Route as TransporteDartRouteImport } from './routes/transporte.dart'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as AdminDartIndexRouteImport } from './routes/admin.dart.index'
+import { Route as AdminDartConfiguracionRouteImport } from './routes/admin.dart.configuracion'
+import { Route as ApiStorageSplatRouteImport } from './routes/api/storage.$'
+import { Route as ApiPublicMediaSplatRouteImport } from './routes/api/public/media.$'
+import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccessibilityRoute = AccessibilityRouteImport.update({
+  id: '/accessibility',
+  path: '/accessibility',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnnouncementsRoute = AnnouncementsRouteImport.update({
+  id: '/announcements',
+  path: '/announcements',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppsRoute = AppsRouteImport.update({
+  id: '/apps',
+  path: '/apps',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BflStatusRoute = BflStatusRouteImport.update({
+  id: '/bfl-status',
+  path: '/bfl-status',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CalendarioRoute = CalendarioRouteImport.update({
@@ -29,122 +131,924 @@ const CalendarioRoute = CalendarioRouteImport.update({
   path: '/calendario',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CuentaRoute = CuentaRouteImport.update({
-  id: '/cuenta',
-  path: '/cuenta',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GaleriaRoute = GaleriaRouteImport.update({
-  id: '/galeria',
-  path: '/galeria',
+const DartRoute = DartRouteImport.update({
+  id: '/dart',
+  path: '/dart',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PanelRoute = PanelRouteImport.update({
-  id: '/panel',
-  path: '/panel',
+const DeportesActividadesRoute = DeportesActividadesRouteImport.update({
+  id: '/deportes-actividades',
+  path: '/deportes-actividades',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PersonalizadosRoute = PersonalizadosRouteImport.update({
-  id: '/personalizados',
-  path: '/personalizados',
+const EmpleosRoute = EmpleosRouteImport.update({
+  id: '/empleos',
+  path: '/empleos',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProductosRoute = ProductosRouteImport.update({
-  id: '/productos',
-  path: '/productos',
+const EquiposRoute = EquiposRouteImport.update({
+  id: '/equipos',
+  path: '/equipos',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RestablecerRoute = RestablecerRouteImport.update({
-  id: '/restablecer',
-  path: '/restablecer',
+const EscuelasRoute = EscuelasRouteImport.update({
+  id: '/escuelas',
+  path: '/escuelas',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TarjetasRoute = TarjetasRouteImport.update({
-  id: '/tarjetas',
-  path: '/tarjetas',
+const EventosRoute = EventosRouteImport.update({
+  id: '/eventos',
+  path: '/eventos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HorarioCampanasRoute = HorarioCampanasRouteImport.update({
+  id: '/horario-campanas',
+  path: '/horario-campanas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LincolnRoute = LincolnRouteImport.update({
+  id: '/lincoln',
+  path: '/lincoln',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgramasRoute = ProgramasRouteImport.update({
+  id: '/programas',
+  path: '/programas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgramasEstudiantesRoute = ProgramasEstudiantesRouteImport.update({
+  id: '/programas-estudiantes',
+  path: '/programas-estudiantes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuienesSomosRoute = QuienesSomosRouteImport.update({
+  id: '/quienes-somos',
+  path: '/quienes-somos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RedesSocialesRoute = RedesSocialesRouteImport.update({
+  id: '/redes-sociales',
+  path: '/redes-sociales',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VoluntariosRoute = VoluntariosRouteImport.update({
+  id: '/voluntarios',
+  path: '/voluntarios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminActividadesRoute = AdminActividadesRouteImport.update({
+  id: '/actividades',
+  path: '/actividades',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnunciosRoute = AdminAnunciosRouteImport.update({
+  id: '/anuncios',
+  path: '/anuncios',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAparienciaRoute = AdminAparienciaRouteImport.update({
+  id: '/apariencia',
+  path: '/apariencia',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminArticulosRoute = AdminArticulosRouteImport.update({
+  id: '/articulos',
+  path: '/articulos',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAyudaFamiliasRoute = AdminAyudaFamiliasRouteImport.update({
+  id: '/ayuda-familias',
+  path: '/ayuda-familias',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCalendarioRoute = AdminCalendarioRouteImport.update({
+  id: '/calendario',
+  path: '/calendario',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCalidadRoute = AdminCalidadRouteImport.update({
+  id: '/calidad',
+  path: '/calidad',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCategoriasRoute = AdminCategoriasRouteImport.update({
+  id: '/categorias',
+  path: '/categorias',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminContactosRoute = AdminContactosRouteImport.update({
+  id: '/contactos',
+  path: '/contactos',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCreadorIaRoute = AdminCreadorIaRouteImport.update({
+  id: '/creador-ia',
+  path: '/creador-ia',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDeportesActividadesRoute =
+  AdminDeportesActividadesRouteImport.update({
+    id: '/deportes-actividades',
+    path: '/deportes-actividades',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminEmergentesRoute = AdminEmergentesRouteImport.update({
+  id: '/emergentes',
+  path: '/emergentes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEmpleosRoute = AdminEmpleosRouteImport.update({
+  id: '/empleos',
+  path: '/empleos',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEscuelasRoute = AdminEscuelasRouteImport.update({
+  id: '/escuelas',
+  path: '/escuelas',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEventosRoute = AdminEventosRouteImport.update({
+  id: '/eventos',
+  path: '/eventos',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminFaqRoute = AdminFaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMenuRoute = AdminMenuRouteImport.update({
+  id: '/menu',
+  path: '/menu',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPodcastsRoute = AdminPodcastsRouteImport.update({
+  id: '/podcasts',
+  path: '/podcasts',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProgramasRoute = AdminProgramasRouteImport.update({
+  id: '/programas',
+  path: '/programas',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProgramasEstudiantesRoute =
+  AdminProgramasEstudiantesRouteImport.update({
+    id: '/programas-estudiantes',
+    path: '/programas-estudiantes',
+    getParentRoute: () => AdminRoute,
+  } as any)
+const AdminRecursosRoute = AdminRecursosRouteImport.update({
+  id: '/recursos',
+  path: '/recursos',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminRedesSocialesRoute = AdminRedesSocialesRouteImport.update({
+  id: '/redes-sociales',
+  path: '/redes-sociales',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminReinicioRoute = AdminReinicioRouteImport.update({
+  id: '/reinicio',
+  path: '/reinicio',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminServiciosRoute = AdminServiciosRouteImport.update({
+  id: '/servicios',
+  path: '/servicios',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSolicitudesRoute = AdminSolicitudesRouteImport.update({
+  id: '/solicitudes',
+  path: '/solicitudes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminTraduccionesRoute = AdminTraduccionesRouteImport.update({
+  id: '/traducciones',
+  path: '/traducciones',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
+  id: '/usuarios',
+  path: '/usuarios',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminVigenciaRoute = AdminVigenciaRouteImport.update({
+  id: '/vigencia',
+  path: '/vigencia',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLoginRoute = AdminLoginRouteImport.update({
+  id: '/admin_/login',
+  path: '/admin/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRegistroRoute = AdminRegistroRouteImport.update({
+  id: '/admin_/registro',
+  path: '/admin/registro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAiGeneratorRoute = ApiAiGeneratorRouteImport.update({
+  id: '/api/ai-generator',
+  path: '/api/ai-generator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPodcastTranscribeRoute = ApiPodcastTranscribeRouteImport.update({
+  id: '/api/podcast-transcribe',
+  path: '/api/podcast-transcribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiTranslateRoute = ApiTranslateRouteImport.update({
+  id: '/api/translate',
+  path: '/api/translate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArticlesSlugRoute = ArticlesSlugRouteImport.update({
+  id: '/articles/$slug',
+  path: '/articles/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EquiposIndexRoute = EquiposIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EquiposRoute,
+} as any)
+const EquiposSlugRoute = EquiposSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => EquiposRoute,
+} as any)
+const GuiasSlugRoute = GuiasSlugRouteImport.update({
+  id: '/guias/$slug',
+  path: '/guias/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PodcastsIndexRoute = PodcastsIndexRouteImport.update({
+  id: '/podcasts/',
+  path: '/podcasts/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PodcastsSlugRoute = PodcastsSlugRouteImport.update({
+  id: '/podcasts/$slug',
+  path: '/podcasts/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TopicsIndexRoute = TopicsIndexRouteImport.update({
+  id: '/topics/',
+  path: '/topics/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TopicsSlugRoute = TopicsSlugRouteImport.update({
+  id: '/topics/$slug',
+  path: '/topics/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TransporteDartRoute = TransporteDartRouteImport.update({
+  id: '/transporte/dart',
+  path: '/transporte/dart',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AdminDartIndexRoute = AdminDartIndexRouteImport.update({
+  id: '/dart/',
+  path: '/dart/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDartConfiguracionRoute = AdminDartConfiguracionRouteImport.update({
+  id: '/dart/configuracion',
+  path: '/dart/configuracion',
+  getParentRoute: () => AdminRoute,
+} as any)
+const ApiStorageSplatRoute = ApiStorageSplatRouteImport.update({
+  id: '/api/storage/$',
+  path: '/api/storage/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicMediaSplatRoute = ApiPublicMediaSplatRouteImport.update({
+  id: '/api/public/media/$',
+  path: '/api/public/media/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
+  id: '/lovable/email/auth/preview',
+  path: '/lovable/email/auth/preview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
+  id: '/lovable/email/auth/webhook',
+  path: '/lovable/email/auth/webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailTransactionalPreviewRoute =
+  LovableEmailTransactionalPreviewRouteImport.update({
+    id: '/lovable/email/transactional/preview',
+    path: '/lovable/email/transactional/preview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/announcements': typeof AnnouncementsRoute
+  '/apps': typeof AppsRoute
+  '/auth': typeof AuthRoute
+  '/bfl-status': typeof BflStatusRoute
   '/calendario': typeof CalendarioRoute
-  '/cuenta': typeof CuentaRoute
-  '/galeria': typeof GaleriaRoute
-  '/panel': typeof PanelRoute
-  '/personalizados': typeof PersonalizadosRoute
-  '/productos': typeof ProductosRoute
-  '/restablecer': typeof RestablecerRoute
-  '/tarjetas': typeof TarjetasRoute
+  '/contact': typeof ContactRoute
+  '/dart': typeof DartRoute
+  '/deportes-actividades': typeof DeportesActividadesRoute
+  '/empleos': typeof EmpleosRoute
+  '/equipos': typeof EquiposRouteWithChildren
+  '/escuelas': typeof EscuelasRoute
+  '/eventos': typeof EventosRoute
+  '/faq': typeof FaqRoute
+  '/horario-campanas': typeof HorarioCampanasRoute
+  '/lincoln': typeof LincolnRoute
+  '/mcp': typeof McpRoute
+  '/programas': typeof ProgramasRoute
+  '/programas-estudiantes': typeof ProgramasEstudiantesRoute
+  '/quienes-somos': typeof QuienesSomosRoute
+  '/redes-sociales': typeof RedesSocialesRoute
+  '/search': typeof SearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/voluntarios': typeof VoluntariosRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/admin/actividades': typeof AdminActividadesRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/anuncios': typeof AdminAnunciosRoute
+  '/admin/apariencia': typeof AdminAparienciaRoute
+  '/admin/articulos': typeof AdminArticulosRoute
+  '/admin/ayuda-familias': typeof AdminAyudaFamiliasRoute
+  '/admin/calendario': typeof AdminCalendarioRoute
+  '/admin/calidad': typeof AdminCalidadRoute
+  '/admin/categorias': typeof AdminCategoriasRoute
+  '/admin/contactos': typeof AdminContactosRoute
+  '/admin/creador-ia': typeof AdminCreadorIaRoute
+  '/admin/deportes-actividades': typeof AdminDeportesActividadesRoute
+  '/admin/emergentes': typeof AdminEmergentesRoute
+  '/admin/empleos': typeof AdminEmpleosRoute
+  '/admin/escuelas': typeof AdminEscuelasRoute
+  '/admin/eventos': typeof AdminEventosRoute
+  '/admin/faq': typeof AdminFaqRoute
+  '/admin/menu': typeof AdminMenuRoute
+  '/admin/podcasts': typeof AdminPodcastsRoute
+  '/admin/programas': typeof AdminProgramasRoute
+  '/admin/programas-estudiantes': typeof AdminProgramasEstudiantesRoute
+  '/admin/recursos': typeof AdminRecursosRoute
+  '/admin/redes-sociales': typeof AdminRedesSocialesRoute
+  '/admin/reinicio': typeof AdminReinicioRoute
+  '/admin/servicios': typeof AdminServiciosRoute
+  '/admin/solicitudes': typeof AdminSolicitudesRoute
+  '/admin/traducciones': typeof AdminTraduccionesRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
+  '/admin/vigencia': typeof AdminVigenciaRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/registro': typeof AdminRegistroRoute
+  '/api/ai-generator': typeof ApiAiGeneratorRoute
+  '/api/podcast-transcribe': typeof ApiPodcastTranscribeRoute
+  '/api/translate': typeof ApiTranslateRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
+  '/equipos/$slug': typeof EquiposSlugRoute
+  '/guias/$slug': typeof GuiasSlugRoute
+  '/podcasts/$slug': typeof PodcastsSlugRoute
+  '/topics/$slug': typeof TopicsSlugRoute
+  '/transporte/dart': typeof TransporteDartRoute
+  '/admin/': typeof AdminIndexRoute
+  '/equipos/': typeof EquiposIndexRoute
+  '/podcasts/': typeof PodcastsIndexRoute
+  '/topics/': typeof TopicsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/admin/dart/configuracion': typeof AdminDartConfiguracionRoute
+  '/api/storage/$': typeof ApiStorageSplatRoute
+  '/admin/dart/': typeof AdminDartIndexRoute
+  '/api/public/media/$': typeof ApiPublicMediaSplatRoute
+  '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
+  '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/announcements': typeof AnnouncementsRoute
+  '/apps': typeof AppsRoute
+  '/auth': typeof AuthRoute
+  '/bfl-status': typeof BflStatusRoute
   '/calendario': typeof CalendarioRoute
-  '/cuenta': typeof CuentaRoute
-  '/galeria': typeof GaleriaRoute
-  '/panel': typeof PanelRoute
-  '/personalizados': typeof PersonalizadosRoute
-  '/productos': typeof ProductosRoute
-  '/restablecer': typeof RestablecerRoute
-  '/tarjetas': typeof TarjetasRoute
+  '/contact': typeof ContactRoute
+  '/dart': typeof DartRoute
+  '/deportes-actividades': typeof DeportesActividadesRoute
+  '/empleos': typeof EmpleosRoute
+  '/escuelas': typeof EscuelasRoute
+  '/eventos': typeof EventosRoute
+  '/faq': typeof FaqRoute
+  '/horario-campanas': typeof HorarioCampanasRoute
+  '/lincoln': typeof LincolnRoute
+  '/mcp': typeof McpRoute
+  '/programas': typeof ProgramasRoute
+  '/programas-estudiantes': typeof ProgramasEstudiantesRoute
+  '/quienes-somos': typeof QuienesSomosRoute
+  '/redes-sociales': typeof RedesSocialesRoute
+  '/search': typeof SearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/voluntarios': typeof VoluntariosRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/admin/actividades': typeof AdminActividadesRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/anuncios': typeof AdminAnunciosRoute
+  '/admin/apariencia': typeof AdminAparienciaRoute
+  '/admin/articulos': typeof AdminArticulosRoute
+  '/admin/ayuda-familias': typeof AdminAyudaFamiliasRoute
+  '/admin/calendario': typeof AdminCalendarioRoute
+  '/admin/calidad': typeof AdminCalidadRoute
+  '/admin/categorias': typeof AdminCategoriasRoute
+  '/admin/contactos': typeof AdminContactosRoute
+  '/admin/creador-ia': typeof AdminCreadorIaRoute
+  '/admin/deportes-actividades': typeof AdminDeportesActividadesRoute
+  '/admin/emergentes': typeof AdminEmergentesRoute
+  '/admin/empleos': typeof AdminEmpleosRoute
+  '/admin/escuelas': typeof AdminEscuelasRoute
+  '/admin/eventos': typeof AdminEventosRoute
+  '/admin/faq': typeof AdminFaqRoute
+  '/admin/menu': typeof AdminMenuRoute
+  '/admin/podcasts': typeof AdminPodcastsRoute
+  '/admin/programas': typeof AdminProgramasRoute
+  '/admin/programas-estudiantes': typeof AdminProgramasEstudiantesRoute
+  '/admin/recursos': typeof AdminRecursosRoute
+  '/admin/redes-sociales': typeof AdminRedesSocialesRoute
+  '/admin/reinicio': typeof AdminReinicioRoute
+  '/admin/servicios': typeof AdminServiciosRoute
+  '/admin/solicitudes': typeof AdminSolicitudesRoute
+  '/admin/traducciones': typeof AdminTraduccionesRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
+  '/admin/vigencia': typeof AdminVigenciaRoute
+  '/admin/login': typeof AdminLoginRoute
+  '/admin/registro': typeof AdminRegistroRoute
+  '/api/ai-generator': typeof ApiAiGeneratorRoute
+  '/api/podcast-transcribe': typeof ApiPodcastTranscribeRoute
+  '/api/translate': typeof ApiTranslateRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
+  '/equipos/$slug': typeof EquiposSlugRoute
+  '/guias/$slug': typeof GuiasSlugRoute
+  '/podcasts/$slug': typeof PodcastsSlugRoute
+  '/topics/$slug': typeof TopicsSlugRoute
+  '/transporte/dart': typeof TransporteDartRoute
+  '/admin': typeof AdminIndexRoute
+  '/equipos': typeof EquiposIndexRoute
+  '/podcasts': typeof PodcastsIndexRoute
+  '/topics': typeof TopicsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/admin/dart/configuracion': typeof AdminDartConfiguracionRoute
+  '/api/storage/$': typeof ApiStorageSplatRoute
+  '/admin/dart': typeof AdminDartIndexRoute
+  '/api/public/media/$': typeof ApiPublicMediaSplatRoute
+  '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
+  '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/announcements': typeof AnnouncementsRoute
+  '/apps': typeof AppsRoute
+  '/auth': typeof AuthRoute
+  '/bfl-status': typeof BflStatusRoute
   '/calendario': typeof CalendarioRoute
-  '/cuenta': typeof CuentaRoute
-  '/galeria': typeof GaleriaRoute
-  '/panel': typeof PanelRoute
-  '/personalizados': typeof PersonalizadosRoute
-  '/productos': typeof ProductosRoute
-  '/restablecer': typeof RestablecerRoute
-  '/tarjetas': typeof TarjetasRoute
+  '/contact': typeof ContactRoute
+  '/dart': typeof DartRoute
+  '/deportes-actividades': typeof DeportesActividadesRoute
+  '/empleos': typeof EmpleosRoute
+  '/equipos': typeof EquiposRouteWithChildren
+  '/escuelas': typeof EscuelasRoute
+  '/eventos': typeof EventosRoute
+  '/faq': typeof FaqRoute
+  '/horario-campanas': typeof HorarioCampanasRoute
+  '/lincoln': typeof LincolnRoute
+  '/mcp': typeof McpRoute
+  '/programas': typeof ProgramasRoute
+  '/programas-estudiantes': typeof ProgramasEstudiantesRoute
+  '/quienes-somos': typeof QuienesSomosRoute
+  '/redes-sociales': typeof RedesSocialesRoute
+  '/search': typeof SearchRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/voluntarios': typeof VoluntariosRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/admin/actividades': typeof AdminActividadesRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
+  '/admin/anuncios': typeof AdminAnunciosRoute
+  '/admin/apariencia': typeof AdminAparienciaRoute
+  '/admin/articulos': typeof AdminArticulosRoute
+  '/admin/ayuda-familias': typeof AdminAyudaFamiliasRoute
+  '/admin/calendario': typeof AdminCalendarioRoute
+  '/admin/calidad': typeof AdminCalidadRoute
+  '/admin/categorias': typeof AdminCategoriasRoute
+  '/admin/contactos': typeof AdminContactosRoute
+  '/admin/creador-ia': typeof AdminCreadorIaRoute
+  '/admin/deportes-actividades': typeof AdminDeportesActividadesRoute
+  '/admin/emergentes': typeof AdminEmergentesRoute
+  '/admin/empleos': typeof AdminEmpleosRoute
+  '/admin/escuelas': typeof AdminEscuelasRoute
+  '/admin/eventos': typeof AdminEventosRoute
+  '/admin/faq': typeof AdminFaqRoute
+  '/admin/menu': typeof AdminMenuRoute
+  '/admin/podcasts': typeof AdminPodcastsRoute
+  '/admin/programas': typeof AdminProgramasRoute
+  '/admin/programas-estudiantes': typeof AdminProgramasEstudiantesRoute
+  '/admin/recursos': typeof AdminRecursosRoute
+  '/admin/redes-sociales': typeof AdminRedesSocialesRoute
+  '/admin/reinicio': typeof AdminReinicioRoute
+  '/admin/servicios': typeof AdminServiciosRoute
+  '/admin/solicitudes': typeof AdminSolicitudesRoute
+  '/admin/traducciones': typeof AdminTraduccionesRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
+  '/admin/vigencia': typeof AdminVigenciaRoute
+  '/admin_/login': typeof AdminLoginRoute
+  '/admin_/registro': typeof AdminRegistroRoute
+  '/api/ai-generator': typeof ApiAiGeneratorRoute
+  '/api/podcast-transcribe': typeof ApiPodcastTranscribeRoute
+  '/api/translate': typeof ApiTranslateRoute
+  '/articles/$slug': typeof ArticlesSlugRoute
+  '/equipos/$slug': typeof EquiposSlugRoute
+  '/guias/$slug': typeof GuiasSlugRoute
+  '/podcasts/$slug': typeof PodcastsSlugRoute
+  '/topics/$slug': typeof TopicsSlugRoute
+  '/transporte/dart': typeof TransporteDartRoute
+  '/admin/': typeof AdminIndexRoute
+  '/equipos/': typeof EquiposIndexRoute
+  '/podcasts/': typeof PodcastsIndexRoute
+  '/topics/': typeof TopicsIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
+  '/admin/dart/configuracion': typeof AdminDartConfiguracionRoute
+  '/api/storage/$': typeof ApiStorageSplatRoute
+  '/admin/dart/': typeof AdminDartIndexRoute
+  '/api/public/media/$': typeof ApiPublicMediaSplatRoute
+  '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
+  '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
+  '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/accessibility'
+    | '/admin'
+    | '/announcements'
+    | '/apps'
+    | '/auth'
+    | '/bfl-status'
     | '/calendario'
-    | '/cuenta'
-    | '/galeria'
-    | '/panel'
-    | '/personalizados'
-    | '/productos'
-    | '/restablecer'
-    | '/tarjetas'
+    | '/contact'
+    | '/dart'
+    | '/deportes-actividades'
+    | '/empleos'
+    | '/equipos'
+    | '/escuelas'
+    | '/eventos'
+    | '/faq'
+    | '/horario-campanas'
+    | '/lincoln'
+    | '/mcp'
+    | '/programas'
+    | '/programas-estudiantes'
+    | '/quienes-somos'
+    | '/redes-sociales'
+    | '/search'
+    | '/sitemap.xml'
+    | '/voluntarios'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
+    | '/admin/actividades'
+    | '/admin/analytics'
+    | '/admin/anuncios'
+    | '/admin/apariencia'
+    | '/admin/articulos'
+    | '/admin/ayuda-familias'
+    | '/admin/calendario'
+    | '/admin/calidad'
+    | '/admin/categorias'
+    | '/admin/contactos'
+    | '/admin/creador-ia'
+    | '/admin/deportes-actividades'
+    | '/admin/emergentes'
+    | '/admin/empleos'
+    | '/admin/escuelas'
+    | '/admin/eventos'
+    | '/admin/faq'
+    | '/admin/menu'
+    | '/admin/podcasts'
+    | '/admin/programas'
+    | '/admin/programas-estudiantes'
+    | '/admin/recursos'
+    | '/admin/redes-sociales'
+    | '/admin/reinicio'
+    | '/admin/servicios'
+    | '/admin/solicitudes'
+    | '/admin/traducciones'
+    | '/admin/usuarios'
+    | '/admin/vigencia'
+    | '/admin/login'
+    | '/admin/registro'
+    | '/api/ai-generator'
+    | '/api/podcast-transcribe'
+    | '/api/translate'
+    | '/articles/$slug'
+    | '/equipos/$slug'
+    | '/guias/$slug'
+    | '/podcasts/$slug'
+    | '/topics/$slug'
+    | '/transporte/dart'
+    | '/admin/'
+    | '/equipos/'
+    | '/podcasts/'
+    | '/topics/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
+    | '/admin/dart/configuracion'
+    | '/api/storage/$'
+    | '/admin/dart/'
+    | '/api/public/media/$'
+    | '/lovable/email/auth/preview'
+    | '/lovable/email/auth/webhook'
+    | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/accessibility'
+    | '/announcements'
+    | '/apps'
+    | '/auth'
+    | '/bfl-status'
     | '/calendario'
-    | '/cuenta'
-    | '/galeria'
-    | '/panel'
-    | '/personalizados'
-    | '/productos'
-    | '/restablecer'
-    | '/tarjetas'
+    | '/contact'
+    | '/dart'
+    | '/deportes-actividades'
+    | '/empleos'
+    | '/escuelas'
+    | '/eventos'
+    | '/faq'
+    | '/horario-campanas'
+    | '/lincoln'
+    | '/mcp'
+    | '/programas'
+    | '/programas-estudiantes'
+    | '/quienes-somos'
+    | '/redes-sociales'
+    | '/search'
+    | '/sitemap.xml'
+    | '/voluntarios'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
+    | '/admin/actividades'
+    | '/admin/analytics'
+    | '/admin/anuncios'
+    | '/admin/apariencia'
+    | '/admin/articulos'
+    | '/admin/ayuda-familias'
+    | '/admin/calendario'
+    | '/admin/calidad'
+    | '/admin/categorias'
+    | '/admin/contactos'
+    | '/admin/creador-ia'
+    | '/admin/deportes-actividades'
+    | '/admin/emergentes'
+    | '/admin/empleos'
+    | '/admin/escuelas'
+    | '/admin/eventos'
+    | '/admin/faq'
+    | '/admin/menu'
+    | '/admin/podcasts'
+    | '/admin/programas'
+    | '/admin/programas-estudiantes'
+    | '/admin/recursos'
+    | '/admin/redes-sociales'
+    | '/admin/reinicio'
+    | '/admin/servicios'
+    | '/admin/solicitudes'
+    | '/admin/traducciones'
+    | '/admin/usuarios'
+    | '/admin/vigencia'
+    | '/admin/login'
+    | '/admin/registro'
+    | '/api/ai-generator'
+    | '/api/podcast-transcribe'
+    | '/api/translate'
+    | '/articles/$slug'
+    | '/equipos/$slug'
+    | '/guias/$slug'
+    | '/podcasts/$slug'
+    | '/topics/$slug'
+    | '/transporte/dart'
+    | '/admin'
+    | '/equipos'
+    | '/podcasts'
+    | '/topics'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
+    | '/admin/dart/configuracion'
+    | '/api/storage/$'
+    | '/admin/dart'
+    | '/api/public/media/$'
+    | '/lovable/email/auth/preview'
+    | '/lovable/email/auth/webhook'
+    | '/lovable/email/transactional/preview'
   id:
     | '__root__'
     | '/'
+    | '/accessibility'
+    | '/admin'
+    | '/announcements'
+    | '/apps'
+    | '/auth'
+    | '/bfl-status'
     | '/calendario'
-    | '/cuenta'
-    | '/galeria'
-    | '/panel'
-    | '/personalizados'
-    | '/productos'
-    | '/restablecer'
-    | '/tarjetas'
+    | '/contact'
+    | '/dart'
+    | '/deportes-actividades'
+    | '/empleos'
+    | '/equipos'
+    | '/escuelas'
+    | '/eventos'
+    | '/faq'
+    | '/horario-campanas'
+    | '/lincoln'
+    | '/mcp'
+    | '/programas'
+    | '/programas-estudiantes'
+    | '/quienes-somos'
+    | '/redes-sociales'
+    | '/search'
+    | '/sitemap.xml'
+    | '/voluntarios'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
+    | '/admin/actividades'
+    | '/admin/analytics'
+    | '/admin/anuncios'
+    | '/admin/apariencia'
+    | '/admin/articulos'
+    | '/admin/ayuda-familias'
+    | '/admin/calendario'
+    | '/admin/calidad'
+    | '/admin/categorias'
+    | '/admin/contactos'
+    | '/admin/creador-ia'
+    | '/admin/deportes-actividades'
+    | '/admin/emergentes'
+    | '/admin/empleos'
+    | '/admin/escuelas'
+    | '/admin/eventos'
+    | '/admin/faq'
+    | '/admin/menu'
+    | '/admin/podcasts'
+    | '/admin/programas'
+    | '/admin/programas-estudiantes'
+    | '/admin/recursos'
+    | '/admin/redes-sociales'
+    | '/admin/reinicio'
+    | '/admin/servicios'
+    | '/admin/solicitudes'
+    | '/admin/traducciones'
+    | '/admin/usuarios'
+    | '/admin/vigencia'
+    | '/admin_/login'
+    | '/admin_/registro'
+    | '/api/ai-generator'
+    | '/api/podcast-transcribe'
+    | '/api/translate'
+    | '/articles/$slug'
+    | '/equipos/$slug'
+    | '/guias/$slug'
+    | '/podcasts/$slug'
+    | '/topics/$slug'
+    | '/transporte/dart'
+    | '/admin/'
+    | '/equipos/'
+    | '/podcasts/'
+    | '/topics/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
+    | '/admin/dart/configuracion'
+    | '/api/storage/$'
+    | '/admin/dart/'
+    | '/api/public/media/$'
+    | '/lovable/email/auth/preview'
+    | '/lovable/email/auth/webhook'
+    | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccessibilityRoute: typeof AccessibilityRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  AnnouncementsRoute: typeof AnnouncementsRoute
+  AppsRoute: typeof AppsRoute
+  AuthRoute: typeof AuthRoute
+  BflStatusRoute: typeof BflStatusRoute
   CalendarioRoute: typeof CalendarioRoute
-  CuentaRoute: typeof CuentaRoute
-  GaleriaRoute: typeof GaleriaRoute
-  PanelRoute: typeof PanelRoute
-  PersonalizadosRoute: typeof PersonalizadosRoute
-  ProductosRoute: typeof ProductosRoute
-  RestablecerRoute: typeof RestablecerRoute
-  TarjetasRoute: typeof TarjetasRoute
+  ContactRoute: typeof ContactRoute
+  DartRoute: typeof DartRoute
+  DeportesActividadesRoute: typeof DeportesActividadesRoute
+  EmpleosRoute: typeof EmpleosRoute
+  EquiposRoute: typeof EquiposRouteWithChildren
+  EscuelasRoute: typeof EscuelasRoute
+  EventosRoute: typeof EventosRoute
+  FaqRoute: typeof FaqRoute
+  HorarioCampanasRoute: typeof HorarioCampanasRoute
+  LincolnRoute: typeof LincolnRoute
+  McpRoute: typeof McpRoute
+  ProgramasRoute: typeof ProgramasRoute
+  ProgramasEstudiantesRoute: typeof ProgramasEstudiantesRoute
+  QuienesSomosRoute: typeof QuienesSomosRoute
+  RedesSocialesRoute: typeof RedesSocialesRoute
+  SearchRoute: typeof SearchRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  VoluntariosRoute: typeof VoluntariosRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  AdminLoginRoute: typeof AdminLoginRoute
+  AdminRegistroRoute: typeof AdminRegistroRoute
+  ApiAiGeneratorRoute: typeof ApiAiGeneratorRoute
+  ApiPodcastTranscribeRoute: typeof ApiPodcastTranscribeRoute
+  ApiTranslateRoute: typeof ApiTranslateRoute
+  ArticlesSlugRoute: typeof ArticlesSlugRoute
+  GuiasSlugRoute: typeof GuiasSlugRoute
+  PodcastsSlugRoute: typeof PodcastsSlugRoute
+  TopicsSlugRoute: typeof TopicsSlugRoute
+  TransporteDartRoute: typeof TransporteDartRoute
+  PodcastsIndexRoute: typeof PodcastsIndexRoute
+  TopicsIndexRoute: typeof TopicsIndexRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
+  ApiStorageSplatRoute: typeof ApiStorageSplatRoute
+  ApiPublicMediaSplatRoute: typeof ApiPublicMediaSplatRoute
+  LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
+  LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
+  LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -156,6 +1060,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/accessibility': {
+      id: '/accessibility'
+      path: '/accessibility'
+      fullPath: '/accessibility'
+      preLoaderRoute: typeof AccessibilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/announcements': {
+      id: '/announcements'
+      path: '/announcements'
+      fullPath: '/announcements'
+      preLoaderRoute: typeof AnnouncementsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apps': {
+      id: '/apps'
+      path: '/apps'
+      fullPath: '/apps'
+      preLoaderRoute: typeof AppsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bfl-status': {
+      id: '/bfl-status'
+      path: '/bfl-status'
+      fullPath: '/bfl-status'
+      preLoaderRoute: typeof BflStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/calendario': {
       id: '/calendario'
       path: '/calendario'
@@ -163,68 +1109,654 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CalendarioRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/cuenta': {
-      id: '/cuenta'
-      path: '/cuenta'
-      fullPath: '/cuenta'
-      preLoaderRoute: typeof CuentaRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/galeria': {
-      id: '/galeria'
-      path: '/galeria'
-      fullPath: '/galeria'
-      preLoaderRoute: typeof GaleriaRouteImport
+    '/dart': {
+      id: '/dart'
+      path: '/dart'
+      fullPath: '/dart'
+      preLoaderRoute: typeof DartRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/panel': {
-      id: '/panel'
-      path: '/panel'
-      fullPath: '/panel'
-      preLoaderRoute: typeof PanelRouteImport
+    '/deportes-actividades': {
+      id: '/deportes-actividades'
+      path: '/deportes-actividades'
+      fullPath: '/deportes-actividades'
+      preLoaderRoute: typeof DeportesActividadesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/personalizados': {
-      id: '/personalizados'
-      path: '/personalizados'
-      fullPath: '/personalizados'
-      preLoaderRoute: typeof PersonalizadosRouteImport
+    '/empleos': {
+      id: '/empleos'
+      path: '/empleos'
+      fullPath: '/empleos'
+      preLoaderRoute: typeof EmpleosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/productos': {
-      id: '/productos'
-      path: '/productos'
-      fullPath: '/productos'
-      preLoaderRoute: typeof ProductosRouteImport
+    '/equipos': {
+      id: '/equipos'
+      path: '/equipos'
+      fullPath: '/equipos'
+      preLoaderRoute: typeof EquiposRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/restablecer': {
-      id: '/restablecer'
-      path: '/restablecer'
-      fullPath: '/restablecer'
-      preLoaderRoute: typeof RestablecerRouteImport
+    '/escuelas': {
+      id: '/escuelas'
+      path: '/escuelas'
+      fullPath: '/escuelas'
+      preLoaderRoute: typeof EscuelasRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tarjetas': {
-      id: '/tarjetas'
-      path: '/tarjetas'
-      fullPath: '/tarjetas'
-      preLoaderRoute: typeof TarjetasRouteImport
+    '/eventos': {
+      id: '/eventos'
+      path: '/eventos'
+      fullPath: '/eventos'
+      preLoaderRoute: typeof EventosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/horario-campanas': {
+      id: '/horario-campanas'
+      path: '/horario-campanas'
+      fullPath: '/horario-campanas'
+      preLoaderRoute: typeof HorarioCampanasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lincoln': {
+      id: '/lincoln'
+      path: '/lincoln'
+      fullPath: '/lincoln'
+      preLoaderRoute: typeof LincolnRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/programas': {
+      id: '/programas'
+      path: '/programas'
+      fullPath: '/programas'
+      preLoaderRoute: typeof ProgramasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/programas-estudiantes': {
+      id: '/programas-estudiantes'
+      path: '/programas-estudiantes'
+      fullPath: '/programas-estudiantes'
+      preLoaderRoute: typeof ProgramasEstudiantesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quienes-somos': {
+      id: '/quienes-somos'
+      path: '/quienes-somos'
+      fullPath: '/quienes-somos'
+      preLoaderRoute: typeof QuienesSomosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/redes-sociales': {
+      id: '/redes-sociales'
+      path: '/redes-sociales'
+      fullPath: '/redes-sociales'
+      preLoaderRoute: typeof RedesSocialesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/voluntarios': {
+      id: '/voluntarios'
+      path: '/voluntarios'
+      fullPath: '/voluntarios'
+      preLoaderRoute: typeof VoluntariosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/actividades': {
+      id: '/admin/actividades'
+      path: '/actividades'
+      fullPath: '/admin/actividades'
+      preLoaderRoute: typeof AdminActividadesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/anuncios': {
+      id: '/admin/anuncios'
+      path: '/anuncios'
+      fullPath: '/admin/anuncios'
+      preLoaderRoute: typeof AdminAnunciosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/apariencia': {
+      id: '/admin/apariencia'
+      path: '/apariencia'
+      fullPath: '/admin/apariencia'
+      preLoaderRoute: typeof AdminAparienciaRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/articulos': {
+      id: '/admin/articulos'
+      path: '/articulos'
+      fullPath: '/admin/articulos'
+      preLoaderRoute: typeof AdminArticulosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/ayuda-familias': {
+      id: '/admin/ayuda-familias'
+      path: '/ayuda-familias'
+      fullPath: '/admin/ayuda-familias'
+      preLoaderRoute: typeof AdminAyudaFamiliasRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/calendario': {
+      id: '/admin/calendario'
+      path: '/calendario'
+      fullPath: '/admin/calendario'
+      preLoaderRoute: typeof AdminCalendarioRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/calidad': {
+      id: '/admin/calidad'
+      path: '/calidad'
+      fullPath: '/admin/calidad'
+      preLoaderRoute: typeof AdminCalidadRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/categorias': {
+      id: '/admin/categorias'
+      path: '/categorias'
+      fullPath: '/admin/categorias'
+      preLoaderRoute: typeof AdminCategoriasRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/contactos': {
+      id: '/admin/contactos'
+      path: '/contactos'
+      fullPath: '/admin/contactos'
+      preLoaderRoute: typeof AdminContactosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/creador-ia': {
+      id: '/admin/creador-ia'
+      path: '/creador-ia'
+      fullPath: '/admin/creador-ia'
+      preLoaderRoute: typeof AdminCreadorIaRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/deportes-actividades': {
+      id: '/admin/deportes-actividades'
+      path: '/deportes-actividades'
+      fullPath: '/admin/deportes-actividades'
+      preLoaderRoute: typeof AdminDeportesActividadesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/emergentes': {
+      id: '/admin/emergentes'
+      path: '/emergentes'
+      fullPath: '/admin/emergentes'
+      preLoaderRoute: typeof AdminEmergentesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/empleos': {
+      id: '/admin/empleos'
+      path: '/empleos'
+      fullPath: '/admin/empleos'
+      preLoaderRoute: typeof AdminEmpleosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/escuelas': {
+      id: '/admin/escuelas'
+      path: '/escuelas'
+      fullPath: '/admin/escuelas'
+      preLoaderRoute: typeof AdminEscuelasRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/eventos': {
+      id: '/admin/eventos'
+      path: '/eventos'
+      fullPath: '/admin/eventos'
+      preLoaderRoute: typeof AdminEventosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/faq': {
+      id: '/admin/faq'
+      path: '/faq'
+      fullPath: '/admin/faq'
+      preLoaderRoute: typeof AdminFaqRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/menu': {
+      id: '/admin/menu'
+      path: '/menu'
+      fullPath: '/admin/menu'
+      preLoaderRoute: typeof AdminMenuRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/podcasts': {
+      id: '/admin/podcasts'
+      path: '/podcasts'
+      fullPath: '/admin/podcasts'
+      preLoaderRoute: typeof AdminPodcastsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/programas': {
+      id: '/admin/programas'
+      path: '/programas'
+      fullPath: '/admin/programas'
+      preLoaderRoute: typeof AdminProgramasRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/programas-estudiantes': {
+      id: '/admin/programas-estudiantes'
+      path: '/programas-estudiantes'
+      fullPath: '/admin/programas-estudiantes'
+      preLoaderRoute: typeof AdminProgramasEstudiantesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/recursos': {
+      id: '/admin/recursos'
+      path: '/recursos'
+      fullPath: '/admin/recursos'
+      preLoaderRoute: typeof AdminRecursosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/redes-sociales': {
+      id: '/admin/redes-sociales'
+      path: '/redes-sociales'
+      fullPath: '/admin/redes-sociales'
+      preLoaderRoute: typeof AdminRedesSocialesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/reinicio': {
+      id: '/admin/reinicio'
+      path: '/reinicio'
+      fullPath: '/admin/reinicio'
+      preLoaderRoute: typeof AdminReinicioRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/servicios': {
+      id: '/admin/servicios'
+      path: '/servicios'
+      fullPath: '/admin/servicios'
+      preLoaderRoute: typeof AdminServiciosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/solicitudes': {
+      id: '/admin/solicitudes'
+      path: '/solicitudes'
+      fullPath: '/admin/solicitudes'
+      preLoaderRoute: typeof AdminSolicitudesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/traducciones': {
+      id: '/admin/traducciones'
+      path: '/traducciones'
+      fullPath: '/admin/traducciones'
+      preLoaderRoute: typeof AdminTraduccionesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/usuarios': {
+      id: '/admin/usuarios'
+      path: '/usuarios'
+      fullPath: '/admin/usuarios'
+      preLoaderRoute: typeof AdminUsuariosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/vigencia': {
+      id: '/admin/vigencia'
+      path: '/vigencia'
+      fullPath: '/admin/vigencia'
+      preLoaderRoute: typeof AdminVigenciaRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin_/login': {
+      id: '/admin_/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin_/registro': {
+      id: '/admin_/registro'
+      path: '/admin/registro'
+      fullPath: '/admin/registro'
+      preLoaderRoute: typeof AdminRegistroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai-generator': {
+      id: '/api/ai-generator'
+      path: '/api/ai-generator'
+      fullPath: '/api/ai-generator'
+      preLoaderRoute: typeof ApiAiGeneratorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/podcast-transcribe': {
+      id: '/api/podcast-transcribe'
+      path: '/api/podcast-transcribe'
+      fullPath: '/api/podcast-transcribe'
+      preLoaderRoute: typeof ApiPodcastTranscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/translate': {
+      id: '/api/translate'
+      path: '/api/translate'
+      fullPath: '/api/translate'
+      preLoaderRoute: typeof ApiTranslateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/articles/$slug': {
+      id: '/articles/$slug'
+      path: '/articles/$slug'
+      fullPath: '/articles/$slug'
+      preLoaderRoute: typeof ArticlesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/equipos/': {
+      id: '/equipos/'
+      path: '/'
+      fullPath: '/equipos/'
+      preLoaderRoute: typeof EquiposIndexRouteImport
+      parentRoute: typeof EquiposRoute
+    }
+    '/equipos/$slug': {
+      id: '/equipos/$slug'
+      path: '/$slug'
+      fullPath: '/equipos/$slug'
+      preLoaderRoute: typeof EquiposSlugRouteImport
+      parentRoute: typeof EquiposRoute
+    }
+    '/guias/$slug': {
+      id: '/guias/$slug'
+      path: '/guias/$slug'
+      fullPath: '/guias/$slug'
+      preLoaderRoute: typeof GuiasSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/podcasts/': {
+      id: '/podcasts/'
+      path: '/podcasts'
+      fullPath: '/podcasts/'
+      preLoaderRoute: typeof PodcastsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/podcasts/$slug': {
+      id: '/podcasts/$slug'
+      path: '/podcasts/$slug'
+      fullPath: '/podcasts/$slug'
+      preLoaderRoute: typeof PodcastsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/topics/': {
+      id: '/topics/'
+      path: '/topics'
+      fullPath: '/topics/'
+      preLoaderRoute: typeof TopicsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/topics/$slug': {
+      id: '/topics/$slug'
+      path: '/topics/$slug'
+      fullPath: '/topics/$slug'
+      preLoaderRoute: typeof TopicsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/transporte/dart': {
+      id: '/transporte/dart'
+      path: '/transporte/dart'
+      fullPath: '/transporte/dart'
+      preLoaderRoute: typeof TransporteDartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/dart/': {
+      id: '/admin/dart/'
+      path: '/dart'
+      fullPath: '/admin/dart/'
+      preLoaderRoute: typeof AdminDartIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/dart/configuracion': {
+      id: '/admin/dart/configuracion'
+      path: '/dart/configuracion'
+      fullPath: '/admin/dart/configuracion'
+      preLoaderRoute: typeof AdminDartConfiguracionRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/api/storage/$': {
+      id: '/api/storage/$'
+      path: '/api/storage/$'
+      fullPath: '/api/storage/$'
+      preLoaderRoute: typeof ApiStorageSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/media/$': {
+      id: '/api/public/media/$'
+      path: '/api/public/media/$'
+      fullPath: '/api/public/media/$'
+      preLoaderRoute: typeof ApiPublicMediaSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/auth/preview': {
+      id: '/lovable/email/auth/preview'
+      path: '/lovable/email/auth/preview'
+      fullPath: '/lovable/email/auth/preview'
+      preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/auth/webhook': {
+      id: '/lovable/email/auth/webhook'
+      path: '/lovable/email/auth/webhook'
+      fullPath: '/lovable/email/auth/webhook'
+      preLoaderRoute: typeof LovableEmailAuthWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
+interface AdminRouteChildren {
+  AdminActividadesRoute: typeof AdminActividadesRoute
+  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
+  AdminAnunciosRoute: typeof AdminAnunciosRoute
+  AdminAparienciaRoute: typeof AdminAparienciaRoute
+  AdminArticulosRoute: typeof AdminArticulosRoute
+  AdminAyudaFamiliasRoute: typeof AdminAyudaFamiliasRoute
+  AdminCalendarioRoute: typeof AdminCalendarioRoute
+  AdminCalidadRoute: typeof AdminCalidadRoute
+  AdminCategoriasRoute: typeof AdminCategoriasRoute
+  AdminContactosRoute: typeof AdminContactosRoute
+  AdminCreadorIaRoute: typeof AdminCreadorIaRoute
+  AdminDeportesActividadesRoute: typeof AdminDeportesActividadesRoute
+  AdminEmergentesRoute: typeof AdminEmergentesRoute
+  AdminEmpleosRoute: typeof AdminEmpleosRoute
+  AdminEscuelasRoute: typeof AdminEscuelasRoute
+  AdminEventosRoute: typeof AdminEventosRoute
+  AdminFaqRoute: typeof AdminFaqRoute
+  AdminMenuRoute: typeof AdminMenuRoute
+  AdminPodcastsRoute: typeof AdminPodcastsRoute
+  AdminProgramasRoute: typeof AdminProgramasRoute
+  AdminProgramasEstudiantesRoute: typeof AdminProgramasEstudiantesRoute
+  AdminRecursosRoute: typeof AdminRecursosRoute
+  AdminRedesSocialesRoute: typeof AdminRedesSocialesRoute
+  AdminReinicioRoute: typeof AdminReinicioRoute
+  AdminServiciosRoute: typeof AdminServiciosRoute
+  AdminSolicitudesRoute: typeof AdminSolicitudesRoute
+  AdminTraduccionesRoute: typeof AdminTraduccionesRoute
+  AdminUsuariosRoute: typeof AdminUsuariosRoute
+  AdminVigenciaRoute: typeof AdminVigenciaRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminDartConfiguracionRoute: typeof AdminDartConfiguracionRoute
+  AdminDartIndexRoute: typeof AdminDartIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminActividadesRoute: AdminActividadesRoute,
+  AdminAnalyticsRoute: AdminAnalyticsRoute,
+  AdminAnunciosRoute: AdminAnunciosRoute,
+  AdminAparienciaRoute: AdminAparienciaRoute,
+  AdminArticulosRoute: AdminArticulosRoute,
+  AdminAyudaFamiliasRoute: AdminAyudaFamiliasRoute,
+  AdminCalendarioRoute: AdminCalendarioRoute,
+  AdminCalidadRoute: AdminCalidadRoute,
+  AdminCategoriasRoute: AdminCategoriasRoute,
+  AdminContactosRoute: AdminContactosRoute,
+  AdminCreadorIaRoute: AdminCreadorIaRoute,
+  AdminDeportesActividadesRoute: AdminDeportesActividadesRoute,
+  AdminEmergentesRoute: AdminEmergentesRoute,
+  AdminEmpleosRoute: AdminEmpleosRoute,
+  AdminEscuelasRoute: AdminEscuelasRoute,
+  AdminEventosRoute: AdminEventosRoute,
+  AdminFaqRoute: AdminFaqRoute,
+  AdminMenuRoute: AdminMenuRoute,
+  AdminPodcastsRoute: AdminPodcastsRoute,
+  AdminProgramasRoute: AdminProgramasRoute,
+  AdminProgramasEstudiantesRoute: AdminProgramasEstudiantesRoute,
+  AdminRecursosRoute: AdminRecursosRoute,
+  AdminRedesSocialesRoute: AdminRedesSocialesRoute,
+  AdminReinicioRoute: AdminReinicioRoute,
+  AdminServiciosRoute: AdminServiciosRoute,
+  AdminSolicitudesRoute: AdminSolicitudesRoute,
+  AdminTraduccionesRoute: AdminTraduccionesRoute,
+  AdminUsuariosRoute: AdminUsuariosRoute,
+  AdminVigenciaRoute: AdminVigenciaRoute,
+  AdminIndexRoute: AdminIndexRoute,
+  AdminDartConfiguracionRoute: AdminDartConfiguracionRoute,
+  AdminDartIndexRoute: AdminDartIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface EquiposRouteChildren {
+  EquiposSlugRoute: typeof EquiposSlugRoute
+  EquiposIndexRoute: typeof EquiposIndexRoute
+}
+
+const EquiposRouteChildren: EquiposRouteChildren = {
+  EquiposSlugRoute: EquiposSlugRoute,
+  EquiposIndexRoute: EquiposIndexRoute,
+}
+
+const EquiposRouteWithChildren =
+  EquiposRoute._addFileChildren(EquiposRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccessibilityRoute: AccessibilityRoute,
+  AdminRoute: AdminRouteWithChildren,
+  AnnouncementsRoute: AnnouncementsRoute,
+  AppsRoute: AppsRoute,
+  AuthRoute: AuthRoute,
+  BflStatusRoute: BflStatusRoute,
   CalendarioRoute: CalendarioRoute,
-  CuentaRoute: CuentaRoute,
-  GaleriaRoute: GaleriaRoute,
-  PanelRoute: PanelRoute,
-  PersonalizadosRoute: PersonalizadosRoute,
-  ProductosRoute: ProductosRoute,
-  RestablecerRoute: RestablecerRoute,
-  TarjetasRoute: TarjetasRoute,
+  ContactRoute: ContactRoute,
+  DartRoute: DartRoute,
+  DeportesActividadesRoute: DeportesActividadesRoute,
+  EmpleosRoute: EmpleosRoute,
+  EquiposRoute: EquiposRouteWithChildren,
+  EscuelasRoute: EscuelasRoute,
+  EventosRoute: EventosRoute,
+  FaqRoute: FaqRoute,
+  HorarioCampanasRoute: HorarioCampanasRoute,
+  LincolnRoute: LincolnRoute,
+  McpRoute: McpRoute,
+  ProgramasRoute: ProgramasRoute,
+  ProgramasEstudiantesRoute: ProgramasEstudiantesRoute,
+  QuienesSomosRoute: QuienesSomosRoute,
+  RedesSocialesRoute: RedesSocialesRoute,
+  SearchRoute: SearchRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  VoluntariosRoute: VoluntariosRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  AdminLoginRoute: AdminLoginRoute,
+  AdminRegistroRoute: AdminRegistroRoute,
+  ApiAiGeneratorRoute: ApiAiGeneratorRoute,
+  ApiPodcastTranscribeRoute: ApiPodcastTranscribeRoute,
+  ApiTranslateRoute: ApiTranslateRoute,
+  ArticlesSlugRoute: ArticlesSlugRoute,
+  GuiasSlugRoute: GuiasSlugRoute,
+  PodcastsSlugRoute: PodcastsSlugRoute,
+  TopicsSlugRoute: TopicsSlugRoute,
+  TransporteDartRoute: TransporteDartRoute,
+  PodcastsIndexRoute: PodcastsIndexRoute,
+  TopicsIndexRoute: TopicsIndexRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
+  ApiStorageSplatRoute: ApiStorageSplatRoute,
+  ApiPublicMediaSplatRoute: ApiPublicMediaSplatRoute,
+  LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
+  LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
+  LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

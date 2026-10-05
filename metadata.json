@@ -1,8 +1,6 @@
 {
-  "name": "Hecho por Monse",
-  "description": "Ramos de flores de listón satinado, regalos románticos, cajas sorpresa y reservas personalizadas.",
+  "name": "DMPS Family Info",
+  "description": "Automated and verified official information portal for Des Moines Public Schools families",
   "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

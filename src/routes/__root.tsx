@@ -11,7 +11,22 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { AppProvider } from "../context/AppContext";
+import { I18nProvider } from "@/lib/i18n";
+import { ThemeProvider, THEME_INIT_SCRIPT } from "@/lib/theme";
+import { Toaster } from "@/components/ui/sonner";
+import { useRealtimeContentSync } from "@/lib/sync";
+import { SchoolProvider } from "@/lib/school";
+import { FirebaseProvider } from "@/lib/firebase-context";
+import { SchoolSelectorModal } from "@/components/school-selector-modal";
+import { OnboardingTutorial } from "@/components/onboarding-tutorial";
+import { FloatingAnnouncement } from "@/components/floating-announcement";
+import { LegacyServiceWorkerCleanup } from "@/components/legacy-sw-cleanup";
+import { CanvaSvgMaskDefs } from "@/components/canva-image-direct-editor";
+import { UniversalPageTranslator } from "@/components/universal-page-translator";
+import { DmpsAnalyticsObserver } from "@/analytics";
+import { PodcastPlayerProvider } from "@/lib/podcast-player-context";
+import { GlobalPodcastPlayer } from "@/components/podcast/global-podcast-player";
+import { BrandingHeadSync } from "@/components/branding-head-sync";
 
 function NotFoundComponent() {
   return (
@@ -78,33 +93,72 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Hecho por Monse" },
+      { title: "DMPS Family Info" },
       {
         name: "description",
         content:
-          "Ramos de flores de listón satinado, regalos románticos, cajas sorpresa y reservas personalizadas.",
+          "Automated and verified official information portal for Des Moines Public Schools families",
       },
-      { property: "og:title", content: "Hecho por Monse" },
+      { name: "author", content: "Des Moines Public Schools" },
+      {
+        name: "google-site-verification",
+        content: "google57394eaad22d42f1",
+      },
+      {
+        name: "google-site-verification",
+        content: "3bAP6SGW3bYnd3_MMJ46K1Qi7S8XjRZTBPXA1e97GXc",
+      },
+      { name: "application-name", content: "Familias DMPS" },
+      { name: "apple-mobile-web-app-title", content: "Familias DMPS" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+      { name: "theme-color", content: "#06234B" },
+
+      { property: "og:title", content: "DMPS Family Info" },
       {
         property: "og:description",
         content:
-          "Ramos de flores de listón satinado, regalos románticos, cajas sorpresa y reservas personalizadas.",
+          "Automated and verified official information portal for Des Moines Public Schools families",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    links: [
+    scripts: [
       {
-        rel: "stylesheet",
-        href: appCss,
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          name: "Des Moines Public Schools",
+          alternateName: "DMPS",
+          url: "https://dmps-familias.lovable.app",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Des Moines",
+            addressRegion: "IA",
+            addressCountry: "US",
+          },
+        }),
       },
+      {
+        children: THEME_INIT_SCRIPT,
+      },
+    ],
+
+    links: [
+      { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "manifest", href: "/api/manifest" },
+      { rel: "apple-touch-icon", sizes: "180x180", href: "/icons/apple-touch-icon.png" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/icons/favicon-32x32.png" },
+      { rel: "icon", type: "image/png", sizes: "16x16", href: "/icons/favicon-16x16.png" },
+      { rel: "shortcut icon", href: "/favicon.ico" },
     ],
   }),
   shellComponent: RootShell,
@@ -115,16 +169,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="es" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
       </head>
-      <body
-        className="bg-[#FCF9F9] text-[#2A2327] font-sans antialiased selection:bg-rose-100 selection:text-rose-900"
-        suppressHydrationWarning
-      >
+      <body suppressHydrationWarning>
         {children}
         <Scripts />
+        <LegacyServiceWorkerCleanup />
       </body>
     </html>
   );
@@ -133,12 +185,90 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    const isExtensionNoise = (msg: string) => {
+      const lower = msg.toLowerCase();
+      return (
+        lower.includes("metamask") ||
+        lower.includes("ethereum") ||
+        lower.includes("coinbase") ||
+        lower.includes("wallet") ||
+        lower.includes("chrome-extension") ||
+        lower.includes("moz-extension") ||
+        lower.includes("failed to connect")
+      );
+    };
+
+    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+      const reason = event.reason ? String(event.reason?.message || event.reason) : "";
+      if (isExtensionNoise(reason)) {
+        event.preventDefault();
+        event.stopImmediatePropagation?.();
+      }
+    };
+
+    const handleError = (event: ErrorEvent) => {
+      const msg = event.message || event.error?.message || "";
+      if (isExtensionNoise(String(msg))) {
+        event.preventDefault();
+        event.stopImmediatePropagation?.();
+      }
+    };
+
+    window.addEventListener("unhandledrejection", handleUnhandledRejection);
+    window.addEventListener("error", handleError);
+
+    // Client-side non-blocking AdSense load after initial hydration
+    try {
+      const existingScript = document.querySelector('script[src*="pagead2.googlesyndication.com"]');
+      if (!existingScript) {
+        const adScript = document.createElement("script");
+        adScript.async = true;
+        adScript.src =
+          "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4360884520548274";
+        adScript.crossOrigin = "anonymous";
+        document.head.appendChild(adScript);
+      }
+    } catch {
+      // ignore
+    }
+
+    return () => {
+      window.removeEventListener("unhandledrejection", handleUnhandledRejection);
+      window.removeEventListener("error", handleError);
+    };
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <AppProvider>
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-      </AppProvider>
+      <ThemeProvider>
+        <I18nProvider>
+          <UniversalPageTranslator />
+          <SchoolProvider>
+            <FirebaseProvider>
+              <PodcastPlayerProvider>
+                <DmpsAnalyticsObserver />
+                <BrandingHeadSync />
+                <RealtimeSync />
+                {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+                <Outlet />
+                <GlobalPodcastPlayer />
+                <OnboardingTutorial />
+                <SchoolSelectorModal />
+                <FloatingAnnouncement />
+                <CanvaSvgMaskDefs />
+
+                <Toaster />
+              </PodcastPlayerProvider>
+            </FirebaseProvider>
+          </SchoolProvider>
+        </I18nProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
+}
+
+function RealtimeSync() {
+  useRealtimeContentSync();
+  return null;
 }

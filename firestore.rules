@@ -2,87 +2,179 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
+    // Default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
     // Helper functions
-    function isAuthenticated() {
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
       return request.auth != null;
     }
 
+    function isVerifiedUser() {
+      return isSignedIn() && (request.auth.token.email_verified == true || request.auth.token.firebase.sign_in_provider == 'anonymous');
+    }
+
     function isAdmin() {
-      return isAuthenticated() && (
-        request.auth.token.role == 'admin' ||
-        get(/databases/$(database)/documents/app_users/$(request.auth.uid)).data.role == 'admin'
+      return isSignedIn() && (
+        request.auth.token.email in ['yeferm264@gmail.com', 'yefermartines9@gmail.com'] ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
       );
     }
 
-    function isOwner(userId) {
-      return isAuthenticated() && request.auth.uid == userId;
+    // Schema Validation Helpers
+    function isValidUserProfile(data) {
+      return data.keys().hasAll(['id', 'email', 'role', 'createdAt', 'updatedAt']) &&
+        data.keys().size() <= 7 &&
+        data.id is string && isValidId(data.id) && data.id == request.auth.uid &&
+        data.email is string && data.email.size() <= 256 &&
+        data.role in ['parent', 'student', 'staff', 'admin'] &&
+        (!('displayName' in data) || (data.displayName is string && data.displayName.size() <= 120)) &&
+        (!('preferredLanguage' in data) || (data.preferredLanguage is string && data.preferredLanguage.size() <= 10));
     }
 
-    // ─── GIVEAWAYS (Sorteos) ──────────────────────────────────────────
-    match /giveaways/{giveawayId} {
-      // Any user (even public anon) can read active and visible giveaways
-      allow read: if true;
-
-      // Only verified store owner/admin can create, update, or delete giveaways
-      allow create, update, delete: if isAdmin();
+    function isValidFamilyInquiry(data) {
+      return data.keys().hasAll(['id', 'userId', 'userName', 'contactEmail', 'message', 'status', 'createdAt', 'updatedAt']) &&
+        data.keys().size() <= 11 &&
+        data.id is string && isValidId(data.id) &&
+        data.userId is string && data.userId == request.auth.uid &&
+        data.userName is string && data.userName.size() <= 100 &&
+        data.contactEmail is string && data.contactEmail.size() <= 256 &&
+        data.message is string && data.message.size() <= 2000 &&
+        data.status in ['pending', 'in_progress', 'resolved'] &&
+        (!('phone' in data) || (data.phone is string && data.phone.size() <= 30)) &&
+        (!('school' in data) || (data.school is string && data.school.size() <= 100)) &&
+        (!('category' in data) || (data.category is string && data.category.size() <= 50));
     }
 
-    // ─── GIVEAWAY ENTRIES (Participaciones) ───────────────────────────
-    match /giveaway_entries/{entryId} {
-      // Users can read entries of a giveaway (to see participation count / public list)
-      allow read: if true;
-
-      // Participation rules:
-      // 1. User must be authenticated
-      // 2. entryId must strictly match giveawayId_userId (prevents multiple entries per user)
-      // 3. User can ONLY insert their own userId
-      // 4. Status must be VALID
-      // 5. Client cannot modify other fields or declare themselves winner
-      allow create: if isAuthenticated()
-        && request.resource.data.userId == request.auth.uid
-        && request.resource.data.entryId == request.resource.data.giveawayId + '_' + request.auth.uid
-        && request.resource.data.status == 'VALID';
-
-      // Normal customers CANNOT update or delete existing entries; only admin can manage
-      allow update, delete: if isAdmin();
+    function isValidAnnouncement(data) {
+      return data.keys().hasAll(['id', 'title', 'content', 'publishedBy', 'createdAt', 'updatedAt']) &&
+        data.keys().size() <= 8 &&
+        data.id is string && isValidId(data.id) &&
+        data.title is string && data.title.size() <= 200 &&
+        data.content is string && data.content.size() <= 10000 &&
+        data.publishedBy is string &&
+        (!('summary' in data) || (data.summary is string && data.summary.size() <= 500)) &&
+        (!('category' in data) || (data.category is string && data.category.size() <= 50)) &&
+        (!('isImportant' in data) || (data.isImportant is bool));
     }
 
-    // ─── GIVEAWAY WINNERS (Ganadores) ─────────────────────────────────
-    match /giveaway_winners/{winnerId} {
-      // Public can read winner details (sanitized publicName, prize, date)
-      allow read: if true;
-
-      // Selection must only be executed through authenticated admin or secure server backend
-      allow create, update, delete: if isAdmin();
+    function isValidSavedItem(data) {
+      return data.keys().hasAll(['id', 'userId', 'itemType', 'itemId', 'title', 'createdAt']) &&
+        data.keys().size() <= 7 &&
+        data.id is string && isValidId(data.id) &&
+        data.userId is string && data.userId == request.auth.uid &&
+        data.itemType is string && data.itemType.size() <= 50 &&
+        data.itemId is string && data.itemId.size() <= 128 &&
+        data.title is string && data.title.size() <= 200 &&
+        (!('url' in data) || (data.url is string && data.url.size() <= 500));
     }
 
-    // ─── DISCOUNTS (Descuentos) ───────────────────────────────────────
-    match /discounts/{discountId} {
-      // Public read for active discount validation in cart and homepage banners
-      allow read: if true;
-
-      // Only admin can create, toggle or delete discounts
-      allow create, update, delete: if isAdmin();
+    function isValidAppArticle(data) {
+      return data.keys().hasAll(['id', 'title', 'appUrl', 'description', 'updatedAt']) &&
+        data.keys().size() <= 15 &&
+        data.id is string && isValidId(data.id) &&
+        data.title is string && data.title.size() <= 200 &&
+        data.appUrl is string && data.appUrl.size() <= 1000 &&
+        data.description is string && data.description.size() <= 20000 &&
+        (!('subtitle' in data) || (data.subtitle is string && data.subtitle.size() <= 500)) &&
+        (!('badgeText' in data) || (data.badgeText is string && data.badgeText.size() <= 100)) &&
+        (!('platform' in data) || (data.platform is string && data.platform.size() <= 100)) &&
+        (!('secondaryUrl' in data) || (data.secondaryUrl is string && data.secondaryUrl.size() <= 1000)) &&
+        (!('secondaryUrlLabel' in data) || (data.secondaryUrlLabel is string && data.secondaryUrlLabel.size() <= 100)) &&
+        (!('imageUrl' in data) || (data.imageUrl is string && data.imageUrl.size() <= 2000)) &&
+        (!('developer' in data) || (data.developer is string && data.developer.size() <= 200)) &&
+        (!('version' in data) || (data.version is string && data.version.size() <= 100)) &&
+        (!('features' in data) || (data.features is list && data.features.size() <= 30));
     }
 
-    // ─── GIFT CARDS (Tarjetas de Regalo) ──────────────────────────────
-    match /gift_cards/{cardId} {
-      // Customer can read gift card if linked to them, or if code matches lookup
-      allow read: if true;
-
-      // Only admin or secure server-side drawing can issue gift cards
-      allow create, update, delete: if isAdmin();
+    // Health / connection test doc
+    match /test/connection {
+      allow get: if true;
     }
 
-    // ─── CHAT CONVERSATIONS ───────────────────────────────────────────
-    match /chat_conversations/{conversationId} {
-      allow read: if isAuthenticated() && (
-        isAdmin() ||
-        resource.data.customerId == request.auth.uid ||
-        conversationId == 'conv-' + request.auth.uid ||
-        conversationId == 'conv-general'
+    // Users collection
+    match /users/{userId} {
+      allow get: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+      allow list: if isAdmin();
+      allow create: if isVerifiedUser() &&
+        request.auth.uid == userId &&
+        isValidId(userId) &&
+        isValidUserProfile(incoming()) &&
+        incoming().role != 'admin';
+      allow update: if isVerifiedUser() && (
+        isAdmin() || (
+          request.auth.uid == userId &&
+          isValidUserProfile(incoming()) &&
+          incoming().role == existing().role &&
+          incoming().createdAt == existing().createdAt &&
+          incoming().diff(existing()).affectedKeys().hasOnly(['displayName', 'preferredLanguage', 'updatedAt'])
+        )
       );
-      allow create, update: if isAuthenticated();
+      allow delete: if isAdmin();
+
+      // User subcollection for saved items
+      match /savedItems/{savedItemId} {
+        allow get, list: if isSignedIn() && request.auth.uid == userId;
+        allow create: if isVerifiedUser() &&
+          request.auth.uid == userId &&
+          isValidId(savedItemId) &&
+          isValidSavedItem(incoming());
+        allow delete: if isVerifiedUser() && request.auth.uid == userId;
+      }
+    }
+
+    // Admins collection
+    match /admins/{adminId} {
+      allow get: if isSignedIn();
+      allow list: if isAdmin();
+      allow write: if isAdmin() && isValidId(adminId);
+    }
+
+    // Family Inquiries collection
+    match /inquiries/{inquiryId} {
+      allow get: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow list: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isVerifiedUser() &&
+        isValidId(inquiryId) &&
+        isValidFamilyInquiry(incoming());
+      allow update: if isVerifiedUser() && (
+        isAdmin() || (
+          resource.data.userId == request.auth.uid &&
+          existing().status != 'resolved' &&
+          isValidFamilyInquiry(incoming()) &&
+          incoming().diff(existing()).affectedKeys().hasOnly(['message', 'updatedAt'])
+        )
+      );
+      allow delete: if isAdmin();
+    }
+
+    // Announcements collection
+    match /announcements/{announcementId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidId(announcementId) && isValidAnnouncement(incoming());
+      allow update: if isAdmin() && isValidAnnouncement(incoming());
+      allow delete: if isAdmin();
+    }
+
+    // App articles collection (featured app, editable from admin panel)
+    match /app_articles/{articleId} {
+      allow read: if true;
+      allow create: if isAdmin() && isValidId(articleId) && isValidAppArticle(incoming());
+      allow update: if isAdmin() && isValidAppArticle(incoming());
       allow delete: if isAdmin();
     }
   }

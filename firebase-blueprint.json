@@ -1,0 +1,345 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile containing basic info, language preference, and account metadata",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier matching the Firebase Auth UID",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the user",
+          "maxLength": 256
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the user",
+          "maxLength": 120
+        },
+        "preferredLanguage": {
+          "type": "string",
+          "description": "Language code preferred by the user (e.g. en, es, vi, so)",
+          "maxLength": 10
+        },
+        "role": {
+          "type": "string",
+          "description": "User role within the platform",
+          "enum": ["parent", "student", "staff", "admin"],
+          "maxLength": 30
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the user profile was created"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the profile was last updated"
+        }
+      },
+      "required": ["id", "email", "role", "createdAt", "updatedAt"]
+    },
+    "FamilyInquiry": {
+      "title": "FamilyInquiry",
+      "description": "Inquiry or help request submitted by a student or family member",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the inquiry",
+          "maxLength": 128
+        },
+        "userId": {
+          "type": "string",
+          "description": "Auth UID of the submitter or anonymous ID",
+          "maxLength": 128
+        },
+        "userName": {
+          "type": "string",
+          "description": "Name of person submitting the inquiry",
+          "maxLength": 100
+        },
+        "contactEmail": {
+          "type": "string",
+          "format": "email",
+          "description": "Email for inquiry response",
+          "maxLength": 256
+        },
+        "phone": {
+          "type": "string",
+          "description": "Contact phone number if provided",
+          "maxLength": 30
+        },
+        "school": {
+          "type": "string",
+          "description": "Associated school or district level",
+          "maxLength": 100
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of inquiry (e.g. enrollment, transportation, meals, academic)",
+          "maxLength": 50
+        },
+        "message": {
+          "type": "string",
+          "description": "Question or help request details",
+          "maxLength": 2000
+        },
+        "status": {
+          "type": "string",
+          "description": "Status of the inquiry",
+          "enum": ["pending", "in_progress", "resolved"],
+          "maxLength": 20
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of submission"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of last status update"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "userName",
+        "contactEmail",
+        "message",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "District or school announcement published for families",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the announcement",
+          "maxLength": 128
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the announcement",
+          "maxLength": 200
+        },
+        "summary": {
+          "type": "string",
+          "description": "Brief summary of the announcement",
+          "maxLength": 500
+        },
+        "content": {
+          "type": "string",
+          "description": "Full content of the announcement",
+          "maxLength": 10000
+        },
+        "category": {
+          "type": "string",
+          "description": "Category (alerts, events, weather, calendar)",
+          "maxLength": 50
+        },
+        "isImportant": {
+          "type": "boolean",
+          "description": "Flag indicating high priority announcement"
+        },
+        "publishedBy": {
+          "type": "string",
+          "description": "UID of admin publisher",
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Publish timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Update timestamp"
+        }
+      },
+      "required": ["id", "title", "content", "publishedBy", "createdAt", "updatedAt"]
+    },
+    "SavedItem": {
+      "title": "SavedItem",
+      "description": "Resource or announcement bookmarked by a user",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the saved item record",
+          "maxLength": 128
+        },
+        "userId": {
+          "type": "string",
+          "description": "Owner user UID",
+          "maxLength": 128
+        },
+        "itemType": {
+          "type": "string",
+          "description": "Type of item saved (announcement, article, activity, service)",
+          "maxLength": 50
+        },
+        "itemId": {
+          "type": "string",
+          "description": "Referenced entity ID",
+          "maxLength": 128
+        },
+        "title": {
+          "type": "string",
+          "description": "Cached title for display",
+          "maxLength": 200
+        },
+        "url": {
+          "type": "string",
+          "description": "Link to view the item",
+          "maxLength": 500
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when bookmarked"
+        }
+      },
+      "required": ["id", "userId", "itemType", "itemId", "title", "createdAt"]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Trusted admin authorization entry",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "UID of administrator",
+          "maxLength": 128
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Admin email",
+          "maxLength": 256
+        },
+        "assignedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When admin rights were granted"
+        }
+      },
+      "required": ["id", "email", "assignedAt"]
+    },
+    "AppArticle": {
+      "title": "AppArticle",
+      "description": "Featured mobile application article with download links, photo, and details",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Article ID",
+          "maxLength": 128
+        },
+        "title": {
+          "type": "string",
+          "description": "Name or title of the app",
+          "maxLength": 200
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Short subtitle or summary",
+          "maxLength": 500
+        },
+        "badgeText": {
+          "type": "string",
+          "description": "Pill badge or highlight tag",
+          "maxLength": 100
+        },
+        "platform": {
+          "type": "string",
+          "description": "Platform availability",
+          "maxLength": 100
+        },
+        "appUrl": {
+          "type": "string",
+          "description": "Main application download or web URL",
+          "maxLength": 1000
+        },
+        "secondaryUrl": {
+          "type": "string",
+          "description": "Secondary store or platform link",
+          "maxLength": 1000
+        },
+        "secondaryUrlLabel": {
+          "type": "string",
+          "description": "Label for secondary link",
+          "maxLength": 100
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Cover photo, screenshot, or icon URL for the app",
+          "maxLength": 2000
+        },
+        "description": {
+          "type": "string",
+          "description": "Full information and article content about the app",
+          "maxLength": 20000
+        },
+        "features": {
+          "type": "array",
+          "description": "List of key features or capabilities"
+        },
+        "developer": {
+          "type": "string",
+          "description": "App developer name",
+          "maxLength": 200
+        },
+        "version": {
+          "type": "string",
+          "description": "Version identifier",
+          "maxLength": 100
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        }
+      },
+      "required": ["id", "title", "appUrl", "description", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles storing preferences and role mappings"
+    },
+    "/admins/{adminId}": {
+      "schema": "AdminUser",
+      "description": "List of authorized administrator UIDs"
+    },
+    "/inquiries/{inquiryId}": {
+      "schema": "FamilyInquiry",
+      "description": "Family inquiries and help requests"
+    },
+    "/announcements/{announcementId}": {
+      "schema": "Announcement",
+      "description": "Official district and school announcements"
+    },
+    "/users/{userId}/savedItems/{savedItemId}": {
+      "schema": "SavedItem",
+      "description": "User's bookmarked articles and resources"
+    },
+    "/app_articles/{articleId}": {
+      "schema": "AppArticle",
+      "description": "Featured application showcase article, download links, and photo"
+    }
+  }
+}

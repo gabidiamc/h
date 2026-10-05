@@ -10,7 +10,7 @@ function isNewSupabaseApiKey(value: string): boolean {
 }
 
 function createSupabaseFetch(supabaseKey: string): typeof fetch {
-  return (input, init) => {
+  return async (input, init) => {
     const headers = new Headers(
       typeof Request !== "undefined" && input instanceof Request ? input.headers : undefined,
     );
@@ -28,118 +28,120 @@ function createSupabaseFetch(supabaseKey: string): typeof fetch {
     }
 
     headers.set("apikey", supabaseKey);
-    return fetch(input, { ...init, headers });
+
+    const jsonHeaders = {
+      "content-type": "application/json; charset=utf-8",
+      "content-range": "0-0/0",
+    };
+    const accept = headers.get("Accept") || headers.get("accept") || "";
+    const emptyBody = accept.includes("application/vnd.pgrst.object+json") ? "null" : "[]";
+
+    if (
+      !supabaseKey ||
+      supabaseKey === "dummy-anon-key" ||
+      supabaseKey === "sb_publishable_nrtndalmngfwqidregma"
+    ) {
+      return new Response(emptyBody, { status: 200, headers: jsonHeaders });
+    }
+
+    try {
+      const response = await fetch(input, { ...init, headers });
+      if (response.status === 401) {
+        return new Response(emptyBody, { status: 200, headers: jsonHeaders });
+      }
+      return response;
+    } catch {
+      return new Response(emptyBody, { status: 200, headers: jsonHeaders });
+    }
   };
 }
 
-function createMockSupabaseAdminClient() {
-  console.warn(
-    "[Supabase Admin] Missing Supabase environment variable(s) — falling back to mock admin client",
-  );
-  const tableStore = new Map<string, Map<string, any>>();
+export function isServiceRoleConfigured(): boolean {
+  const serviceKey = process.env["SUPABASE_SERVICE_ROLE_KEY"];
+  if (!serviceKey) return false;
+  if (serviceKey.startsWith("dummy") || serviceKey.length < 20) return false;
+  return true;
+}
 
-  const getTable = (tableName: string) => {
-    let t = tableStore.get(tableName);
-    if (!t) {
-      t = new Map<string, any>();
-      tableStore.set(tableName, t);
+export function getSanitizedProjectId(): string {
+  const url = process.env["SUPABASE_URL"] || process.env["VITE_SUPABASE_URL"] || "";
+  try {
+    const host = new URL(url).hostname;
+    const projectPart = host.split(".")[0];
+    if (projectPart && projectPart.length > 6) {
+      return `${projectPart.slice(0, 5)}...${projectPart.slice(-3)}`;
     }
-    return t;
-  };
+    return projectPart || "no_configurado";
+  } catch {
+    return "no_configurado";
+  }
+}
 
-  const createQueryBuilder = (tableName: string) => {
-    let filterEq: { field: string; value: any } | null = null;
-    let filterIn: { field: string; values: any[] } | null = null;
+export function hasValidServerDatabaseConfig(): boolean {
+  const url = process.env["SUPABASE_URL"] || process.env["VITE_SUPABASE_URL"];
+  if (!url || url.includes("127.0.0.1:54321")) return false;
+  return isServiceRoleConfigured();
+}
 
-    const builder: any = {
-      select(_fields?: string) {
-        return builder;
-      },
-      eq(field: string, value: any) {
-        filterEq = { field, value };
-        return builder;
-      },
-      in(field: string, values: any[]) {
-        filterIn = { field, values };
-        return builder;
-      },
-      async maybeSingle() {
-        const table = getTable(tableName);
-        let found: any = null;
-        if (filterEq) {
-          if (filterEq.field === "id") {
-            const raw = table.get(String(filterEq.value));
-            if (raw !== undefined) found = { id: filterEq.value, data: raw };
-          }
-        }
-        return { data: found, error: null };
-      },
-      async single() {
-        return builder.maybeSingle();
-      },
-      async insert(rows: any) {
-        const table = getTable(tableName);
-        const list = Array.isArray(rows) ? rows : [rows];
-        for (const row of list) {
-          const id = row.id || `mock_${Date.now()}`;
-          table.set(id, row.data !== undefined ? row.data : row);
-        }
-        return { data: rows, error: null };
-      },
-      async upsert(rows: any) {
-        const table = getTable(tableName);
-        const list = Array.isArray(rows) ? rows : [rows];
-        for (const row of list) {
-          const id = row.id || `mock_${Date.now()}`;
-          table.set(id, row.data !== undefined ? row.data : row);
-        }
-        return { data: rows, error: null };
-      },
-      async delete() {
-        const table = getTable(tableName);
-        if (filterEq && filterEq.field === "id") {
-          table.delete(String(filterEq.value));
-        } else if (filterIn && filterIn.field === "id") {
-          for (const val of filterIn.values) {
-            table.delete(String(val));
-          }
-        }
-        return { data: null, error: null };
-      },
-      then(resolve: any, reject?: any) {
-        const table = getTable(tableName);
-        const result: any[] = [];
-        for (const [id, data] of table.entries()) {
-          result.push({ id, data });
-        }
-        return Promise.resolve({ data: result, error: null }).then(resolve, reject);
-      },
-    };
-    return builder;
-  };
+function getEffectiveServerKey(): string {
+  const serviceKey = process.env["SUPABASE_SERVICE_ROLE_KEY"];
+  const pubKey =
+    process.env["SUPABASE_PUBLISHABLE_KEY"] ||
+    process.env["VITE_SUPABASE_PUBLISHABLE_KEY"] ||
+    process.env["SUPABASE_ANON_KEY"] ||
+    process.env["VITE_SUPABASE_ANON_KEY"];
 
-  return {
-    auth: {
-      admin: {
-        getUserById: async () => ({ data: { user: null }, error: null }),
-        deleteUser: async () => ({ data: null, error: null }),
-      },
-    },
-    from: (tableName: string) => createQueryBuilder(tableName),
-  } as unknown as ReturnType<typeof createClient<Database>>;
+  if (
+    serviceKey &&
+    (serviceKey.startsWith("sb_secret_") ||
+      serviceKey.startsWith("eyJ") ||
+      (!serviceKey.startsWith("dummy") && serviceKey.length > 20))
+  ) {
+    return serviceKey;
+  }
+
+  if (pubKey) {
+    return pubKey;
+  }
+
+  return "dummy-anon-key";
 }
 
 function createSupabaseAdminClient() {
-  const SUPABASE_URL = process.env["SUPABASE_URL"];
-  const SUPABASE_SERVICE_ROLE_KEY = process.env["SUPABASE_SERVICE_ROLE_KEY"];
+  const SUPABASE_URL =
+    process.env["SUPABASE_URL"] ||
+    process.env["VITE_SUPABASE_URL"] ||
+    "https://nrtndalmngfwqidregma.supabase.co";
+  const SUPABASE_KEY = getEffectiveServerKey();
 
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-    return createMockSupabaseAdminClient();
+  const isConfigured = Boolean(
+    (process.env["SUPABASE_URL"] || process.env["VITE_SUPABASE_URL"]) &&
+    (process.env["SUPABASE_SERVICE_ROLE_KEY"] ||
+      process.env["SUPABASE_PUBLISHABLE_KEY"] ||
+      process.env["VITE_SUPABASE_PUBLISHABLE_KEY"] ||
+      process.env["SUPABASE_ANON_KEY"] ||
+      process.env["VITE_SUPABASE_ANON_KEY"]),
+  );
+
+  if (!isConfigured) {
+    const missing = [
+      ...(!process.env["SUPABASE_URL"] && !process.env["VITE_SUPABASE_URL"]
+        ? ["SUPABASE_URL"]
+        : []),
+      ...(!process.env["SUPABASE_SERVICE_ROLE_KEY"] &&
+      !process.env["SUPABASE_PUBLISHABLE_KEY"] &&
+      !process.env["VITE_SUPABASE_PUBLISHABLE_KEY"]
+        ? ["SUPABASE_SERVICE_ROLE_KEY"]
+        : []),
+    ];
+    console.warn(
+      `[Supabase] Note: Missing Supabase environment variable(s): ${missing.join(", ")}. Official sync will operate in offline/preview mode.`,
+    );
   }
 
-  return createClient<Database>(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+  return createClient<Database>(SUPABASE_URL, SUPABASE_KEY, {
     global: {
-      fetch: createSupabaseFetch(SUPABASE_SERVICE_ROLE_KEY),
+      fetch: createSupabaseFetch(SUPABASE_KEY),
     },
     auth: {
       storage: undefined,

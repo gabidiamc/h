@@ -4,7 +4,25 @@
 let lastCapturedError: { error: unknown; at: number } | undefined;
 const TTL_MS = 5_000;
 
+function shouldIgnoreError(error: unknown): boolean {
+  if (!error) return false;
+  const str =
+    typeof error === "string"
+      ? error
+      : (error as Error)?.message || (error as Error)?.stack || String(error);
+  const lower = str.toLowerCase();
+  return (
+    lower.includes("metamask") ||
+    lower.includes("ethereum") ||
+    lower.includes("coinbase") ||
+    lower.includes("wallet") ||
+    lower.includes("chrome-extension") ||
+    lower.includes("moz-extension")
+  );
+}
+
 function record(error: unknown) {
+  if (shouldIgnoreError(error)) return;
   lastCapturedError = { error, at: Date.now() };
 }
 

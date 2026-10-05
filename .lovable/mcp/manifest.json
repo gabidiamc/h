@@ -1,0 +1,186 @@
+{
+  "version": 1,
+  "sdk_version": "0.26.2",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://nrtndalmngfwqidregma.supabase.co/auth/v1",
+    "accepted_audiences": ["authenticated"]
+  },
+  "mcp": {
+    "server": {
+      "name": "familiasdmps",
+      "version": "0.1.0",
+      "title": "familiasdmps"
+    },
+    "tools": [
+      {
+        "name": "search_articles",
+        "title": "Buscar artículos",
+        "description": "Busca artículos informativos del sitio por texto en el título o resumen. Devuelve id, slug, escuela y estado.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Texto a buscar en el título o resumen del artículo."
+            },
+            "school_id": {
+              "type": "string",
+              "description": "Filtra por escuela: 'lincoln', 'east' o vacío para todo el distrito."
+            },
+            "limit": {
+              "type": "number",
+              "description": "Máximo de artículos a devolver (por defecto 20)."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_article",
+        "title": "Ver artículo",
+        "description": "Devuelve un artículo completo con sus traducciones (título, resumen y bloques de contenido) por id o slug.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Id del artículo."
+            },
+            "slug": {
+              "type": "string",
+              "description": "Slug del artículo."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_events",
+        "title": "Ver calendario",
+        "description": "Lista eventos del calendario escolar (días sin clases, conferencias de padres, festivos, inicio de clases) ordenados por fecha.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "from": {
+              "type": "string",
+              "description": "Fecha inicial en formato YYYY-MM-DD."
+            },
+            "to": {
+              "type": "string",
+              "description": "Fecha final en formato YYYY-MM-DD."
+            },
+            "school_id": {
+              "type": "string",
+              "description": "'lincoln', 'east' o vacío para todo el distrito."
+            },
+            "limit": {
+              "type": "number",
+              "description": "Máximo de eventos (por defecto 30)."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_announcements",
+        "title": "Ver anuncios",
+        "description": "Lista los anuncios y avisos del sitio con su texto por idioma, nivel y vigencia.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "school_id": {
+              "type": "string",
+              "description": "'lincoln', 'east' o vacío para todo el distrito."
+            },
+            "limit": {
+              "type": "number",
+              "description": "Máximo de anuncios (por defecto 20)."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "create_announcement",
+        "title": "Crear anuncio",
+        "description": "Crea un anuncio nuevo con su texto en español (y en inglés si se indica). Requiere una cuenta del personal con permisos de contenido.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Título del anuncio en español."
+            },
+            "message": {
+              "type": "string",
+              "description": "Mensaje del anuncio en español."
+            },
+            "title_en": {
+              "type": "string",
+              "description": "Título en inglés (opcional)."
+            },
+            "message_en": {
+              "type": "string",
+              "description": "Mensaje en inglés (opcional)."
+            },
+            "level": {
+              "type": "string",
+              "description": "Nivel: 'info', 'warning' o 'urgent'."
+            },
+            "school_id": {
+              "type": "string",
+              "description": "'lincoln', 'east' o vacío para todo el distrito."
+            },
+            "show_on_home": {
+              "type": "boolean",
+              "description": "Mostrar en la portada."
+            },
+            "link_url": {
+              "type": "string",
+              "description": "Enlace opcional del anuncio."
+            }
+          },
+          "required": ["title", "message"],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="appStoreGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#28B4FE" />
+      <stop offset="100%" stop-color="#0267E6" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="115" fill="url(#appStoreGrad)" />
+  <g fill="none" stroke="#FFFFFF" stroke-width="42" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M165 370 L285 130" />
+    <path d="M347 370 L227 130" />
+    <path d="M145 310 L367 310" />
+  </g>
+</svg>

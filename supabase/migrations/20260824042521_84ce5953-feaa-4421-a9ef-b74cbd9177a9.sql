@@ -1,0 +1,2 @@
+DROP POLICY IF EXISTS admin_invitations_staff_select ON public.admin_invitations;
+CREATE POLICY admin_invitations_admin_select ON public.admin_invitations FOR SELECT TO authenticated USING (public.is_admin(auth.uid()));

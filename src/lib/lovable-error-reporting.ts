@@ -5,7 +5,6 @@ type LovableErrorOptions = {
 };
 
 type LovableEvents = {
-  track?: (event: string, properties?: Record<string, unknown>) => string | null;
   captureException?: (
     error: unknown,
     context?: Record<string, unknown>,
@@ -26,6 +25,30 @@ declare global {
 
 export function reportLovableError(error: unknown, context: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
+
+  const message =
+    error instanceof Response
+      ? `Response ${error.status}${error.url ? ` at ${error.url}` : ""}`
+      : error instanceof Error
+        ? error.message
+        : String(error);
+
+  const stack = error instanceof Error ? error.stack : undefined;
+
+  // Ignore browser extension and crypto wallet noise (e.g. MetaMask extension)
+  const lowerMsg = message.toLowerCase();
+  const lowerStack = (stack || "").toLowerCase();
+  if (
+    lowerMsg.includes("metamask") ||
+    lowerMsg.includes("ethereum") ||
+    lowerMsg.includes("coinbase") ||
+    lowerMsg.includes("wallet") ||
+    lowerStack.includes("chrome-extension://") ||
+    lowerStack.includes("moz-extension://")
+  ) {
+    return;
+  }
+
   window.__lovableEvents?.captureException?.(
     error,
     {
@@ -44,13 +67,6 @@ export function reportLovableError(error: unknown, context: Record<string, unkno
   // which is present only inside the editor preview.
   // Loaders and server fns commonly throw a raw Response; String(it) is the
   // opaque "[object Response]", so pull out the status and URL instead.
-  const message =
-    error instanceof Response
-      ? `Response ${error.status}${error.url ? ` at ${error.url}` : ""}`
-      : error instanceof Error
-        ? error.message
-        : String(error);
-  const stack = error instanceof Error ? error.stack : undefined;
   window.__lovableReportRuntimeError?.({
     message,
     ...(stack !== undefined && { stack }),
